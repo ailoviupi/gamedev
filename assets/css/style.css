@@ -61,11 +61,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -75,6 +78,9 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     transition: background-color var(--transition), color var(--transition);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
 }
 
 .cursor-glow {
@@ -461,15 +467,23 @@ body {
 .btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
-    padding: 0.875rem 1.75rem;
+    padding: 1rem 1.5rem;
+    min-height: 48px;
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
     border-radius: var(--radius-full);
     border: none;
     cursor: pointer;
-    transition: all var(--transition);
+    transition: all var(--transition-fast);
+    touch-action: manipulation;
+    user-select: none;
+}
+
+.btn:active {
+    transform: scale(0.97);
 }
 
 .btn svg {
@@ -1015,13 +1029,20 @@ body {
 
 .weapon-card {
     position: relative;
-    padding: 1.5rem;
+    padding: 1.25rem;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-xl);
     overflow: hidden;
-    transition: all var(--transition);
+    transition: all var(--transition-fast);
     animation: fadeIn 0.5s ease forwards;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+.weapon-card:active {
+    transform: scale(0.98);
+    border-color: var(--primary);
 }
 
 @keyframes fadeIn {
@@ -1051,6 +1072,7 @@ body {
 .weapon-icon {
     width: 48px;
     height: 48px;
+    min-width: 48px;
     background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
@@ -1058,6 +1080,14 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.25rem;
+    overflow: hidden;
+}
+
+.weapon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .weapon-info {
@@ -1286,6 +1316,23 @@ body {
 }
 
 @media (max-width: 768px) {
+    html {
+        font-size: 15px;
+    }
+
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        overflow-x: hidden;
+        touch-action: pan-x pan-y;
+    }
+
+    .cursor-glow {
+        display: none;
+    }
+
     .nav-links {
         position: fixed;
         top: 72px;
@@ -1301,142 +1348,320 @@ body {
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
-        transition: all var(--transition);
+        transition: all var(--transition-fast);
+        z-index: 1000;
+        -webkit-overflow-scrolling: touch;
     }
-    
+
     .nav-links.active {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
     }
-    
+
     .nav-link {
-        padding: 0.75rem 1rem;
+        padding: 1rem 1.25rem;
         width: 100%;
         text-align: center;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-lg);
+        transition: background-color var(--transition-fast);
     }
-    
+
+    .nav-link:active {
+        background-color: var(--bg-tertiary);
+    }
+
     .mobile-menu-btn {
         display: flex;
+        min-width: 48px;
+        min-height: 48px;
+        padding: 0.75rem;
     }
-    
+
     .mobile-menu-btn.active span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
     }
-    
+
     .mobile-menu-btn.active span:nth-child(2) {
         opacity: 0;
     }
-    
+
     .mobile-menu-btn.active span:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -5px);
     }
-    
+
     .hero {
-        padding: 3rem 1rem;
+        padding: 2.5rem 1rem;
         min-height: calc(100vh - 72px);
     }
-    
+
     .hero-stats {
         gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
     }
-    
+
     .stat-divider {
         display: none;
     }
-    
+
     .hero-actions {
         flex-direction: column;
+        gap: 0.75rem;
     }
-    
+
     .btn {
         width: 100%;
         justify-content: center;
+        padding: 1rem 1.25rem;
+        min-height: 52px;
     }
-    
+
+    .btn:active {
+        transform: scale(0.97);
+    }
+
     .scroll-indicator {
         display: none;
     }
-    
+
     .section-header {
         margin-bottom: 2rem;
+        text-align: center;
     }
-    
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
     .activity-section,
     .manufacturing-section,
     .hot-section,
     .weapons-section {
-        padding: 4rem 0;
+        padding: 3rem 0;
     }
-    
+
     .hot-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
-    
+
     .hot-controls {
-        padding: 0 1rem;
+        padding: 0 0.5rem;
     }
-    
+
     .filter-scroll {
-        padding: 0.75rem;
+        padding: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
-    
+
+    .filter-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
     .filter-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+        padding: 0.625rem 1rem;
+        font-size: 0.85rem;
+        min-height: 40px;
+        white-space: nowrap;
     }
-    
+
+    .filter-btn:active {
+        transform: scale(0.95);
+    }
+
     .filter-btn svg {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
     }
-    
+
     .weapons-grid {
         grid-template-columns: 1fr;
+        gap: 0.875rem;
     }
-    
+
+    .weapon-card {
+        padding: 1rem;
+    }
+
+    .weapon-card:active {
+        transform: scale(0.98);
+    }
+
     .footer {
-        padding: 3rem 0 1.5rem;
+        padding: 2rem 0 1.5rem;
     }
-    
+
+    .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .footer-bottom {
+        margin-top: 1.5rem;
+    }
+
     .toast-container {
-        right: 10px;
-        left: 10px;
+        right: 12px;
+        left: 12px;
+        bottom: 20px;
     }
-    
+
     .toast {
-        padding: 0.75rem 1rem;
+        padding: 0.875rem 1rem;
+        min-height: 48px;
+    }
+
+    .hot-item,
+    .activity-card {
+        touch-action: manipulation;
+        user-select: none;
+    }
+
+    .hot-item:active,
+    .activity-card:active {
+        transform: scale(0.98);
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .floating-element {
+        animation: none;
+        opacity: 0.1;
     }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 0 1rem;
+        padding: 0 0.875rem;
     }
-    
+
     .nav {
-        padding: 0.75rem 1rem;
+        padding: 0.625rem 0.875rem;
     }
-    
+
     .brand-text {
         display: none;
     }
-    
-    .hero-title {
-        font-size: 2rem;
-    }
-    
-    .stat-value {
+
+    .brand-icon {
         font-size: 1.5rem;
     }
-    
+
+    .hero {
+        padding: 2rem 0.75rem;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-stats {
+        gap: 0.75rem;
+    }
+
+    .stat-item {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .stat-value {
+        font-size: 1.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .hero-actions {
+        gap: 0.625rem;
+    }
+
+    .btn {
+        padding: 0.875rem 1rem;
+        min-height: 48px;
+        font-size: 0.95rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.875rem;
+    }
+
     .manufacturing-grid {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
     }
-    
+
+    .manufacturing-card {
+        padding: 1rem;
+    }
+
     .activity-card {
         flex-direction: column;
         text-align: center;
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .hot-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+
+    .hot-item-info {
+        width: 100%;
+    }
+
+    .hot-item-actions {
+        width: 100%;
+    }
+
+    .copy-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .weapon-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .weapon-name {
+        font-size: 1rem;
+    }
+
+    .weapon-meta {
+        font-size: 0.8rem;
+    }
+
+    .filter-btn {
+        padding: 0.5rem 0.875rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -1452,4 +1677,22 @@ body {
 [data-aos="fade-up"].aos-animate {
     opacity: 1;
     transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce), (max-width: 768px) {
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .floating-element {
+        animation: none !important;
+    }
 }

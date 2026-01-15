@@ -156,7 +156,7 @@ class App {
 
     getWeaponIcon(weapon) {
         if (weapon.image) {
-            return `<img src="${weapon.image}" alt="${weapon.name}" class="weapon-img" onerror="this.style.display='none';this.parentElement.innerHTML='${weaponEmojis[weapon.category] || '🔫'}';">`;
+            return `<img src="${weapon.image}" alt="${weapon.name}" class="weapon-img" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.innerHTML='${weaponEmojis[weapon.category] || '🔫'}';">`;
         }
         return weaponEmojis[weapon.category] || '🔫';
     }
