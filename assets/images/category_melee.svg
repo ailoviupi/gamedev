@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="meleeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#95a5a6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7f8c8d;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="24" y="18" width="16" height="4" rx="1" fill="url(#meleeGrad)"/>
+  <rect x="28" y="22" width="8" height="24" rx="2" fill="#7f8c8d"/>
+  <rect x="26" y="46" width="12" height="8" rx="2" fill="#5d6d7e"/>
+  <rect x="24" y="50" width="16" height="4" rx="1" fill="#5d6d7e"/>
+  <line x1="32" y1="24" x2="32" y2="44" stroke="#566573" stroke-width="2"/>
+  <line x1="28" y1="30" x2="36" y2="30" stroke="#566573" stroke-width="1"/>
+  <line x1="28" y1="36" x2="36" y2="36" stroke="#566573" stroke-width="1"/>
+</svg>
