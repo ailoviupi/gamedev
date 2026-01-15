@@ -1,0 +1,37 @@
+name: 更新改枪码数据
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [update_data]
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: 安装依赖
+        run: |
+          npm install axios cheerio
+          
+      - name: 爬取最新数据
+        run: |
+          node scraper.js
+        env:
+          SOURCE_URL: https://g.aitags.cn/
+          
+      - name: 提交更新
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'docs: 自动更新改枪码数据 $(date +%Y-%m-%d)'
+          file_pattern: assets/js/data.js

@@ -1,70 +1,8 @@
-const weaponData = [
-    { name: "M870霰弹枪", category: "shotgun", code: "M870001", description: "低配方案", value: "15W" },
-    { name: "MK4冲锋枪", category: "smg", code: "MK4001", description: "标准配置", value: "12W" },
-    { name: "Mini-14射手步枪", category: "marksman", code: "MINI1401", description: "精准射击", value: "20W" },
-    { name: "SKS射手步枪", category: "marksman", code: "SKS001", description: "性价比之选", value: "18W" },
-    { name: "Marlin杠杆步枪", category: "marksman", code: "MARLIN01", description: "经典复古", value: "16W" },
-    { name: "AKS-74U", category: "smg", code: "AKS74U01", description: "近距离突击", value: "14W" },
-    { name: "CAR-15", category: "rifle", code: "CAR1501", description: "万能配置", value: "22W" },
-    { name: "QSZ92G", category: "pistol", code: "QSZ92G01", description: "手枪推荐", value: "8W" },
-    { name: "沙漠之鹰", category: "pistol", code: "DEAGLE01", description: "高伤害手枪", value: "10W" },
-    { name: "G17", category: "pistol", code: "G17001", description: "标准手枪", value: "7W" },
-    { name: "M1911", category: "pistol", code: "M191101", description: "经典手枪", value: "6W" },
-    { name: "MK47突击步枪", category: "rifle", code: "MK4701", description: "强力输出", value: "25W" },
-    { name: "M16A4突击步枪", category: "rifle", code: "M16A401", description: "经典步枪", value: "20W" },
-    { name: "野牛冲锋枪", category: "smg", code: "BISON01", description: "高射速", value: "16W" },
-    { name: "SVD", category: "sniper", code: "SVD001", description: "精确狙击", value: "30W" },
-    { name: "PSG-1", category: "sniper", code: "PSG101", description: "高精度狙击", value: "35W" },
-    { name: "PTR-32", category: "sniper", code: "PTR3201", description: "远程打击", value: "32W" },
-    { name: "KC17", category: "sniper", code: "KC1701", description: "顶级狙击", value: "40W" },
-    { name: "复合弓", category: "special", code: "BOW001", description: "特殊武器", value: "12W" },
-    { name: "93R", category: "pistol", code: "93R001", description: "手枪连发", value: "9W" },
-    { name: ".357左轮", category: "pistol", code: "357001", description: "高伤害左轮", value: "11W" },
-    { name: "G18", category: "pistol", code: "G18001", description: "全自动手枪", value: "10W" },
-    { name: "AWM", category: "sniper", code: "AWM001", description: "终极狙击", value: "45W" },
-    { name: "R93", category: "sniper", code: "R93001", description: "精准猎手", value: "38W" },
-    { name: "SV-98", category: "sniper", code: "SV9801", description: "俄式狙击", value: "33W" },
-    { name: "M700", category: "sniper", code: "M70001", description: "经典狙击", value: "28W" },
-    { name: "SR-25", category: "marksman", code: "SR2501", description: "半自动射手", value: "24W" },
-    { name: "M14射手步枪", category: "marksman", code: "M1401", description: "经典射手", value: "22W" },
-    { name: "PKM", category: "lmg", code: "PKM001", description: "轻机枪王", value: "28W" },
-    { name: "M249", category: "lmg", code: "M249001", description: "火力压制", value: "30W" },
-    { name: "M250", category: "lmg", code: "M250001", description: "重火力", value: "32W" },
-    { name: "QJB201", category: "lmg", code: "QJB20101", description: "国产机枪", value: "26W" },
-    { name: "M1014", category: "shotgun", code: "M101401", description: "战术霰弹", value: "18W" },
-    { name: "S12K", category: "shotgun", code: "S12K01", description: "自动霰弹", value: "20W" },
-    { name: "725双管霰弹枪", category: "shotgun", code: "725001", description: "双管爆发", value: "22W" },
-    { name: "MP5", category: "smg", code: "MP5001", description: "经典冲锋", value: "15W" },
-    { name: "P90", category: "smg", code: "P90001", description: "未来设计", value: "17W" },
-    { name: "Vector", category: "smg", code: "VECTOR01", description: "超高射速", value: "18W" },
-    { name: "UZI", category: "smg", code: "UZI001", description: "微型冲锋", value: "13W" },
-    { name: "SMG-45", category: "smg", code: "SMG4501", description: "复古风格", value: "14W" },
-    { name: "SR-3M", category: "smg", code: "SR3M01", description: "俄式冲锋", value: "16W" },
-    { name: "勇士冲锋枪", category: "smg", code: "WARRIOR01", description: "国产冲锋", value: "15W" },
-    { name: "MP7", category: "smg", code: "MP7001", description: "精密冲锋", value: "16W" },
-    { name: "QCQ171", category: "smg", code: "QCQ17101", description: "新锐冲锋", value: "17W" },
-    { name: "M4A1", category: "rifle", code: "M4A101", description: "万能之王", value: "24W" },
-    { name: "AKM", category: "rifle", code: "AKM001", description: "经典AK", value: "20W" },
-    { name: "QBZ95-1", category: "rifle", code: "QBZ9501", description: "国产95式", value: "22W" },
-    { name: "ASh-12K", category: "smg", code: "ASH12K01", description: "大口径冲锋", value: "19W" },
-    { name: "K416", category: "rifle", code: "K41601", description: "德系精工", value: "26W" },
-    { name: "AUG突击步枪", category: "rifle", code: "AUG001", description: "奥地利名枪", value: "25W" },
-    { name: "M7战斗步枪", category: "rifle", code: "M7001", description: "战斗步枪", value: "23W" },
-    { name: "SG552", category: "rifle", code: "SG55201", description: "精准射击", value: "24W" },
-    { name: "AK-12", category: "rifle", code: "AK1201", description: "现代AK", value: "26W" },
-    { name: "SCAR-H", category: "rifle", code: "SCARH01", description: "特种作战", value: "27W" },
-    { name: "G3", category: "rifle", code: "G3001", description: "德系经典", value: "22W" },
-    { name: "AS Val", category: "special", code: "ASVAL01", description: "特种消音", value: "28W" },
-    { name: "腾龙突击步枪", category: "rifle", code: "TENGLONG01", description: "国产新锐", value: "27W" },
-    { name: "K437", category: "special", code: "K43701", description: "特殊武器", value: "20W" }
-];
-
-const hotWeapons = [
-    { name: "M250", code: "6H3EPMK0BAC7RIM3B0293", description: "低配", value: "36W", copyCount: 3746 },
-    { name: "K416", code: "6GL0ARO0B47DBPRUAR75R", description: "低配", value: "18W", copyCount: 0 },
-    { name: "M4A1", code: "M4A1GUNCODE123456", description: "标准配置", value: "24W", copyCount: 2341 },
-    { name: "AK-12", code: "AK12GUNCODE789012", description: "高配", value: "26W", copyCount: 1876 }
-];
+let weaponData = [];
+let hotWeapons = [];
+let manufacturingData = [];
+let activityData = [];
+let siteInfo = {};
 
 const categoryNames = {
     all: "全部",
@@ -98,7 +36,8 @@ class App {
         this.init();
     }
 
-    init() {
+    async init() {
+        await this.loadData();
         this.initTheme();
         this.initMobileMenu();
         this.initSmoothScroll();
@@ -109,7 +48,98 @@ class App {
         this.initAOS();
         this.renderHotWeapons();
         this.renderWeapons();
+        this.renderManufacturing();
+        this.renderActivities();
         this.updateStats();
+    }
+
+    async loadData() {
+        try {
+            const response = await fetch('assets/js/data.js');
+            const scriptText = await response.text();
+            
+            const script = document.createElement('script');
+            script.textContent = scriptText;
+            document.head.appendChild(script);
+            
+            if (typeof weaponData === 'undefined' || weaponData.length === 0) {
+                console.log('使用备用数据');
+                this.loadFallbackData();
+            }
+        } catch (error) {
+            console.error('加载数据失败:', error);
+            this.loadFallbackData();
+        }
+    }
+
+    loadFallbackData() {
+        weaponData = [
+            { name: "M870霰弹枪", category: "shotgun", code: "M870001", description: "低配方案", value: "15W", copyCount: 0 },
+            { name: "MK4冲锋枪", category: "smg", code: "MK4001", description: "标准配置", value: "12W", copyCount: 0 },
+            { name: "Mini-14射手步枪", category: "marksman", code: "MINI1401", description: "精准射击", value: "20W", copyCount: 0 },
+            { name: "SKS射手步枪", category: "marksman", code: "SKS001", description: "性价比之选", value: "18W", copyCount: 0 },
+            { name: "M4A1", category: "rifle", code: "M4A101", description: "万能之王", value: "24W", copyCount: 0 },
+            { name: "AK-12", category: "rifle", code: "AK1201", description: "现代AK", value: "26W", copyCount: 0 },
+            { name: "K416", category: "rifle", code: "K41601", description: "德系精工", value: "26W", copyCount: 0 },
+            { name: "SVD", category: "sniper", code: "SVD001", description: "精确狙击", value: "30W", copyCount: 0 },
+            { name: "AWM", category: "sniper", code: "AWM001", description: "终极狙击", value: "45W", copyCount: 0 },
+            { name: "M249", category: "lmg", code: "M249001", description: "火力压制", value: "30W", copyCount: 0 },
+            { name: "MP5", category: "smg", code: "MP5001", description: "经典冲锋", value: "15W", copyCount: 0 },
+            { name: "沙漠之鹰", category: "pistol", code: "DEAGLE01", description: "高伤害手枪", value: "10W", copyCount: 0 },
+            { name: "QBZ95-1", category: "rifle", code: "QBZ9501", description: "国产95式", value: "22W", copyCount: 0 },
+            { name: "PKM", category: "lmg", code: "PKM001", description: "轻机枪王", value: "28W", copyCount: 0 },
+            { name: "M1014", category: "shotgun", code: "M101401", description: "战术霰弹", value: "18W", copyCount: 0 },
+            { name: "P90", category: "smg", code: "P90001", description: "未来设计", value: "17W", copyCount: 0 },
+            { name: "G17", category: "pistol", code: "G17001", description: "标准手枪", value: "7W", copyCount: 0 },
+            { name: "SR-25", category: "marksman", code: "SR2501", description: "半自动射手", value: "24W", copyCount: 0 },
+            { name: "Vector", category: "smg", code: "VECTOR01", description: "超高射速", value: "18W", copyCount: 0 },
+            { name: "M16A4", category: "rifle", code: "M16A401", description: "经典步枪", value: "20W", copyCount: 0 },
+            { name: "AKM", category: "rifle", code: "AKM001", description: "经典AK", value: "20W", copyCount: 0 },
+            { name: "PSG-1", category: "sniper", code: "PSG101", description: "高精度狙击", value: "35W", copyCount: 0 },
+            { name: "MK47", category: "rifle", code: "MK4701", description: "强力输出", value: "25W", copyCount: 0 },
+            { name: "SCAR-H", category: "rifle", code: "SCARH01", description: "特种作战", value: "27W", copyCount: 0 },
+            { name: "野牛冲锋枪", category: "smg", code: "BISON01", description: "高射速", value: "16W", copyCount: 0 },
+            { name: "SV-98", category: "sniper", code: "SV9801", description: "俄式狙击", value: "33W", copyCount: 0 },
+            { name: "M700", category: "sniper", code: "M70001", description: "经典狙击", value: "28W", copyCount: 0 },
+            { name: "93R", category: "pistol", code: "93R001", description: "手枪连发", value: "9W", copyCount: 0 },
+            { name: "UZI", category: "smg", code: "UZI001", description: "微型冲锋", value: "13W", copyCount: 0 },
+            { name: "AUG", category: "rifle", code: "AUG001", description: "奥地利名枪", value: "25W", copyCount: 0 },
+            { name: "R93", category: "sniper", code: "R93001", description: "精准猎手", value: "38W", copyCount: 0 },
+            { name: "PTR-32", category: "sniper", code: "PTR3201", description: "远程打击", value: "32W", copyCount: 0 },
+            { name: "KC17", category: "sniper", code: "KC1701", description: "顶级狙击", value: "40W", copyCount: 0 },
+            { name: "M14", category: "marksman", code: "M1401", description: "经典射手", value: "22W", copyCount: 0 },
+            { name: "M250", category: "lmg", code: "M250001", description: "重火力", value: "32W", copyCount: 0 },
+            { name: "QJB201", category: "lmg", code: "QJB20101", description: "国产机枪", value: "26W", copyCount: 0 },
+            { name: "S12K", category: "shotgun", code: "S12K01", description: "自动霰弹", value: "20W", copyCount: 0 },
+            { name: "725", category: "shotgun", code: "725001", description: "双管爆发", value: "22W", copyCount: 0 },
+            { name: "复合弓", category: "special", code: "BOW001", description: "特殊武器", value: "12W", copyCount: 0 },
+            { name: "AS Val", category: "special", code: "ASVAL01", description: "特种消音", value: "28W", copyCount: 0 },
+            { name: "K437", category: "special", code: "K43701", description: "特殊武器", value: "20W", copyCount: 0 },
+            { name: "腾龙", category: "rifle", code: "TENGLONG01", description: "国产新锐", value: "27W", copyCount: 0 },
+            { name: "G3", category: "rifle", code: "G3001", description: "德系经典", value: "22W", copyCount: 0 },
+            { name: "SG552", category: "rifle", code: "SG55201", description: "精准射击", value: "24W", copyCount: 0 },
+            { name: "M7", category: "rifle", code: "M7001", description: "战斗步枪", value: "23W", copyCount: 0 },
+            { name: "CAR-15", category: "rifle", code: "CAR1501", description: "万能配置", value: "22W", copyCount: 0 },
+            { name: "QSZ92", category: "pistol", code: "QSZ9201", description: "手枪推荐", value: "8W", copyCount: 0 },
+            { name: "M1911", category: "pistol", code: "M191101", description: "经典手枪", value: "6W", copyCount: 0 },
+            { name: "G18", category: "pistol", code: "G18001", description: "全自动手枪", value: "10W", copyCount: 0 },
+            { name: "357左轮", category: "pistol", code: "357001", description: "高伤害左轮", value: "11W", copyCount: 0 },
+            { name: "MP7", category: "smg", code: "MP7001", description: "精密冲锋", value: "16W", copyCount: 0 },
+            { name: "SMG-45", category: "smg", code: "SMG4501", description: "复古风格", value: "14W", copyCount: 0 },
+            { name: "SR-3M", category: "smg", code: "SR3M01", description: "俄式冲锋", value: "16W", copyCount: 0 },
+            { name: "勇士", category: "smg", code: "WARRIOR01", description: "国产冲锋", value: "15W", copyCount: 0 },
+            { name: "QCQ171", category: "smg", code: "QCQ17101", description: "新锐冲锋", value: "17W", copyCount: 0 },
+            { name: "AKS-74U", category: "smg", code: "AKS74U01", description: "近距离突击", value: "14W", copyCount: 0 },
+            { name: "ASh-12K", category: "smg", code: "ASH12K01", description: "大口径冲锋", value: "19W", copyCount: 0 },
+            { name: "Marlin", category: "marksman", code: "MARLIN01", description: "经典复古", value: "16W", copyCount: 0 }
+        ];
+
+        hotWeapons = [
+            { name: "M249", code: "6G94JAC08OPOB8QKQ72I8", description: "低配", value: "17W", copyCount: 9150 },
+            { name: "SVD", code: "6GS5BGK064FJ19C5SGDFD", description: "火控", value: "29W", copyCount: 0 },
+            { name: "K416", code: "6GL0ARO0B47DBPRUAR75R", description: "低配", value: "18W", copyCount: 0 },
+            { name: "M250", code: "6H3EPMK0BAC7RIM3B0293", description: "低配", value: "36W", copyCount: 3746 }
+        ];
     }
 
     initTheme() {
@@ -243,6 +273,8 @@ class App {
 
     renderHotWeapons(weapons = hotWeapons) {
         const hotGrid = document.getElementById('hotGrid');
+        if (!hotGrid) return;
+        
         hotGrid.innerHTML = weapons.map((weapon, index) => `
             <div class="hot-card" style="animation-delay: ${index * 0.1}s">
                 <div class="hot-card-header">
@@ -268,7 +300,7 @@ class App {
                         <line x1="16" y1="17" x2="8" y2="17"/>
                         <polyline points="10 9 9 9 8 9"/>
                     </svg>
-                    <span class="hot-card-copy-count">${weapon.copyCount.toLocaleString()} 次复制</span>
+                    <span class="hot-card-copy-count">${weapon.copyCount > 0 ? weapon.copyCount.toLocaleString() : '0'} 次复制</span>
                 </div>
             </div>
         `).join('');
@@ -276,6 +308,8 @@ class App {
 
     renderWeapons() {
         const weaponsGrid = document.getElementById('weaponsGrid');
+        if (!weaponsGrid) return;
+        
         const filteredWeapons = this.getFilteredWeapons();
         const weaponsToShow = filteredWeapons.slice(0, this.displayedWeapons);
         
@@ -285,7 +319,7 @@ class App {
                     <div class="weapon-icon">🔫</div>
                     <div class="weapon-info">
                         <h3 class="weapon-name">${weapon.name}</h3>
-                        <span class="weapon-category">${categoryNames[weapon.category]}</span>
+                        <span class="weapon-category">${categoryNames[weapon.category] || weapon.category}</span>
                     </div>
                 </div>
                 <div class="weapon-code" onclick="app.copyCode('${weapon.code}', this)">
@@ -299,6 +333,8 @@ class App {
         `).join('');
 
         const loadMoreBtn = document.getElementById('loadMoreBtn');
+        if (!loadMoreBtn) return;
+        
         if (this.displayedWeapons >= filteredWeapons.length) {
             loadMoreBtn.style.display = 'none';
         } else {
@@ -306,9 +342,64 @@ class App {
         }
     }
 
+    renderManufacturing() {
+        const container = document.querySelector('.manufacturing-grid');
+        if (!container || !manufacturingData || manufacturingData.length === 0) return;
+
+        const categories = {
+            '技术中心': 'tech-center',
+            '工作台': 'workbench',
+            '制药台': 'pharmacy',
+            '防具台': 'armor'
+        };
+
+        container.innerHTML = manufacturingData.map((item, index) => `
+            <div class="manufacturing-card" data-aos="fade-up" data-aos-delay="${index * 100}">
+                <div class="card-glow"></div>
+                <div class="card-header">
+                    <div class="card-icon ${categories[item.category] || ''}"></div>
+                    <span class="card-category">${item.category || '制造'}</span>
+                </div>
+                <h3 class="card-title">${item.name}</h3>
+                <div class="card-profit">
+                    <span class="profit-label">小时利润</span>
+                    <span class="profit-value">${item.profit.toLocaleString()}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    renderActivities() {
+        const container = document.querySelector('.activity-grid');
+        if (!container || !activityData || activityData.length === 0) return;
+
+        container.innerHTML = activityData.map(item => `
+            <div class="activity-card">
+                <div class="activity-icon"></div>
+                <div class="activity-info">
+                    <h3 class="activity-name">${item.name}</h3>
+                    <div class="activity-profit">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                            <polyline points="17 6 23 6 23 12"/>
+                        </svg>
+                        <span>${item.reward || '未知'}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
     updateStats() {
-        document.getElementById('weaponCount').textContent = weaponData.length + '+';
-        document.getElementById('codeCount').textContent = (weaponData.length * 4) + '+';
+        const weaponCount = document.getElementById('weaponCount');
+        const codeCount = document.getElementById('codeCount');
+        
+        if (weaponCount) {
+            weaponCount.textContent = (weaponData.length || 0) + '+';
+        }
+        if (codeCount) {
+            codeCount.textContent = ((weaponData.length || 0) * 4) + '+';
+        }
     }
 
     async copyCode(code, element) {
@@ -334,6 +425,7 @@ class App {
 
     showToast(message, type = 'info') {
         const toastContainer = document.getElementById('toastContainer');
+        if (!toastContainer) return;
         
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
