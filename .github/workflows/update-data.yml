@@ -4,117 +4,32 @@ on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
-    inputs:
-      force:
-        description: '强制更新（跳过检查）'
-        required: false
-        default: 'false'
   repository_dispatch:
     types: [update_data]
-
-permissions:
-  contents: write
-  actions: read
 
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_dispatch' || github.event.inputs.force == 'false'
-    
+
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-          
+
       - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          
+
       - name: 安装依赖
-        run: |
-          npm install axios cheerio --no-audit --no-fund
-          
-      - name: 获取当前数据时间
-        id: current-data
-        run: |
-          if [ -f "assets/js/data.js" ]; then
-            echo "last_update=$(grep -o '// 数据来源:' assets/js/data.js | head -1)" >> $GITHUB_OUTPUT
-          fi
-          
+        run: npm install axios cheerio
+
       - name: 爬取最新数据
-        id: scrape
-        run: |
-          if node scraper.js; then
-            echo "status=success" >> $GITHUB_OUTPUT
-          else
-            echo "status=failed" >> $GITHUB_OUTPUT
-            exit 1
-          fi
+        run: node scraper.js
         env:
           SOURCE_URL: https://g.aitags.cn/
-          
-      - name: 检查数据是否有变化
-        id: check-changes
-        run: |
-          if git diff --quiet assets/js/data.js; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "✅ 数据已是最新，无需更新"
-          else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "📊 检测到数据变化，准备更新"
-          fi
-          
+
       - name: 提交更新
-        if: steps.check-changes.outputs.has_changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'docs: 自动更新改枪码数据 $(date +%Y-%m-%d)'
           file_pattern: assets/js/data.js
-          commit_user_name: 'github-actions[bot]'
-          commit_user_email: 'github-actions[bot]@users.noreply.github.com'
-          
-      - name: 推送更新
-        if: steps.check-changes.outputs.has_changes == 'true'
-        run: |
-          git push origin master
-          
-  force-scrape:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.force == 'true'
-    
-    steps:
-      - name: 强制爬取数据
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-          
-      - name: 设置 Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          
-      - name: 安装依赖
-        run: |
-          npm install axios cheerio --no-audit --no-fund
-          
-      - name: 强制爬取最新数据
-        run: |
-          node scraper.js
-        env:
-          SOURCE_URL: https://g.aitags.cn/
-          
-      - name: 提交并推送更新
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 'docs: 强制更新改枪码数据 $(date +%Y-%m-%d)'
-          file_pattern: assets/js/data.js
-          commit_user_name: 'github-actions[bot]'
-          commit_user_email: 'github-actions[bot]@users.noreply.github.com'
-          
-      - name: 推送更新
-        run: |
-          git push origin master
