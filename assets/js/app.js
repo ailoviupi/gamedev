@@ -552,20 +552,41 @@ class App {
     }
 
     async copyCode(code, element) {
+        if (!code) {
+            this.showToast('复制失败，编码无效', 'info');
+            return;
+        }
+
         try {
-            await navigator.clipboard.writeText(code);
-            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(code);
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                if (!successful) {
+                    throw new Error('execCommand copy failed');
+                }
+            }
+
             const icon = element.querySelector('.copy-icon');
             const originalHTML = icon.innerHTML;
             
             icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
             icon.style.color = '#10b981';
+            icon.parentElement.style.color = '#10b981';
             
             this.showToast('改枪码已复制到剪贴板', 'success');
             
             setTimeout(() => {
                 icon.innerHTML = originalHTML;
                 icon.style.color = '';
+                icon.parentElement.style.color = '';
             }, 2000);
         } catch (err) {
             this.showToast('复制失败，请手动选择复制', 'info');
