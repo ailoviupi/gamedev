@@ -9,25 +9,14 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
 
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
-        with:
-          persist-credentials: false
 
       - name: 设置 Node.js
         uses: actions/setup-node@v4
@@ -45,17 +34,14 @@ jobs:
       - name: 配置 Git
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config credential.helper store
-          echo "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com" > ~/.git-credentials
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: 提交更新
+      - name: 提交并推送更新
         run: |
-          git add assets/js/data.js
-          git commit -m "docs: 自动更新改枪码数据 $(date +%Y-%m-%d)" || echo "没有数据变化"
-          git push origin master || echo "无需推送"
-
-      - name: 部署到 GitHub Pages
-        if: github.ref == 'refs/heads/master'
-        uses: actions/deploy-pages@v4
-        id: deployment
+          if git diff --quiet assets/js/data.js; then
+            echo "✅ 数据已是最新，无需更新"
+          else
+            git add assets/js/data.js
+            git commit -m "docs: 自动更新改枪码数据 $(date +%Y-%m-%d)"
+            git push origin master
+          fi
