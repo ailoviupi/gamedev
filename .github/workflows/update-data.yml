@@ -8,7 +8,7 @@ on:
     types: [update_data]
 
 permissions:
-  contents: write
+  contents: readwrite
 
 jobs:
   scrape-and-update:
@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 设置 Node.js
         uses: actions/setup-node@v4
@@ -38,10 +40,10 @@ jobs:
 
       - name: 提交并推送更新
         run: |
-          if git diff --quiet assets/js/data.js; then
+          git add assets/js/data.js
+          if git diff --cached --quiet; then
             echo "✅ 数据已是最新，无需更新"
           else
-            git add assets/js/data.js
             git commit -m "docs: 自动更新改枪码数据 $(date +%Y-%m-%d)"
             git push origin master
           fi
