@@ -45,7 +45,11 @@ class App {
         this.currentCategory = 'all';
         this.displayedWeapons = 12;
         this.theme = localStorage.getItem('theme') || 'dark';
-        this.init();
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.init());
+        } else {
+            this.init();
+        }
     }
 
     async init() {
@@ -56,6 +60,7 @@ class App {
         this.initFilterButtons();
         this.initRandomButton();
         this.initLoadMore();
+        this.initEventDelegation();
         this.initCursorGlow();
         this.initAOS();
         this.renderHotWeapons();
@@ -247,6 +252,19 @@ class App {
         });
     }
 
+    initEventDelegation() {
+        document.addEventListener('click', (e) => {
+            const copyBtn = e.target.closest('.copy-btn');
+            if (copyBtn) {
+                const codeContainer = copyBtn.closest('[data-code]');
+                if (codeContainer) {
+                    const code = codeContainer.dataset.code;
+                    this.copyCode(code, copyBtn.querySelector('.copy-icon'));
+                }
+            }
+        });
+    }
+
     initCursorGlow() {
         const cursorGlow = document.querySelector('.cursor-glow');
         
@@ -300,12 +318,11 @@ class App {
                     <h3 class="hot-card-title">${weapon.name}</h3>
                     <span class="hot-badge">热门</span>
                 </div>
-                <div class="hot-card-code" onclick="app.copyCode('${weapon.code}', this)">
-                    <code>${weapon.code}</code>
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
+                <div class="hot-card-code" data-code="${weapon.code}">
+                    <span class="code-text">${this.formatCode(weapon.code)}</span>
+                    <button class="copy-btn" aria-label="复制">
+                        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
                 </div>
                 <div class="hot-card-meta">
                     <span class="hot-card-description">${weapon.description}</span>
@@ -341,12 +358,11 @@ class App {
                         <span class="weapon-category">${categoryNames[weapon.category] || weapon.category}</span>
                     </div>
                 </div>
-                <div class="weapon-code" onclick="app.copyCode('${weapon.code}', this)">
+                <div class="weapon-code" data-code="${weapon.code}">
                     <code>${weapon.code}</code>
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
+                    <button class="copy-btn" aria-label="复制">
+                        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
                 </div>
             </div>
         `).join('');
@@ -423,6 +439,11 @@ class App {
         if (codeCount) {
             codeCount.textContent = ((weaponData.length || 0) * 4) + '+';
         }
+    }
+
+    formatCode(code) {
+        if (!code) return '';
+        return code.length > 12 ? code.substring(0, 12) + '...' : code;
     }
 
     async copyCode(code, element) {
