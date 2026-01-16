@@ -1,76 +1,76 @@
-// 自动生成的数据文件 - 2026/1/16 16:42:41
+// 自动生成的数据文件 - 2026/1/16 16:45:32
 // 数据来源: https://g.aitags.cn/
 
 const weaponData = [
     {
-        "name": "725双管霰弹枪",
-        "code": "6H2R61K08F8FFPMQA1O83",
-        "description": "3倍镜 用独头弹当狙打",
-        "value": "29W",
-        "category": "shotgun",
-        "copyCount": 3300,
-        "image": "/assets/images/category_shotgun.svg"
-    },
-    {
-        "name": "沙漠之鹰",
-        "code": "沙漠之鹰-烽火地带-6IBAREC0A3DCN3T9I535L",
-        "description": "二倍",
-        "value": "17W",
-        "category": "pistol",
-        "copyCount": 501,
-        "image": "/assets/images/category_pistol.svg"
-    },
-    {
-        "name": "CAR-15",
-        "code": "6HH7K7K024CH4QGG5QQUE",
-        "description": "消音·45发",
-        "value": "13W",
+        "name": "AKS-74U",
+        "code": "6H4NIB40ERAPPQR7C1VV1",
+        "description": "",
+        "value": "12W",
         "category": "rifle",
-        "copyCount": 4863,
+        "copyCount": 3667,
         "image": "/assets/images/category_rifle.svg"
     },
     {
-        "name": "MK4冲锋枪",
-        "code": "6I6FFL806UPSRBSFIDPDC",
-        "description": "YJJ同款·腰射3连发",
-        "value": "26W",
+        "name": "PTR-32",
+        "code": "6H01T1K09MTF0NSTEEU37",
+        "description": "性价比",
+        "value": "14W",
+        "category": "sniper",
+        "copyCount": 7516,
+        "image": "/assets/images/category_sniper.svg"
+    },
+    {
+        "name": "QCQ171",
+        "code": "6GV4DOS03I0RFPFTOIP1D",
+        "description": "低倍",
+        "value": "11W",
         "category": "smg",
-        "copyCount": 14115,
+        "copyCount": 12626,
+        "image": "/assets/images/category_smg.svg"
+    },
+    {
+        "name": "Vector",
+        "code": "6H135GK0FIOH9JJL4D8E6",
+        "description": "低配",
+        "value": "21W",
+        "category": "smg",
+        "copyCount": 13592,
         "image": "/assets/images/category_smg.svg"
     }
 ];
 
 const hotWeapons = [
     {
-        "name": "725双管霰弹枪",
-        "code": "6H2R61K08F8FFPMQA1O83",
-        "description": "3倍镜 用独头弹当狙打",
-        "value": "29W",
-        "copyCount": 3300,
-        "image": "/assets/images/category_shotgun.svg"
-    },
-    {
-        "name": "沙漠之鹰",
-        "code": "沙漠之鹰-烽火地带-6IBAREC0A3DCN3T9I535L",
-        "description": "二倍",
-        "value": "17W",
-        "copyCount": 501,
-        "image": "/assets/images/category_pistol.svg"
-    },
-    {
-        "name": "CAR-15",
-        "code": "6HH7K7K024CH4QGG5QQUE",
-        "description": "消音·45发",
-        "value": "13W",
-        "copyCount": 4863,
+        "name": "AKS-74U",
+        "code": "6H4NIB40ERAPPQR7C1VV1",
+        "description": "",
+        "value": "12W",
+        "copyCount": 3667,
         "image": "/assets/images/category_rifle.svg"
     },
     {
-        "name": "MK4冲锋枪",
-        "code": "6I6FFL806UPSRBSFIDPDC",
-        "description": "YJJ同款·腰射3连发",
-        "value": "26W",
-        "copyCount": 14115,
+        "name": "PTR-32",
+        "code": "6H01T1K09MTF0NSTEEU37",
+        "description": "性价比",
+        "value": "14W",
+        "copyCount": 7516,
+        "image": "/assets/images/category_sniper.svg"
+    },
+    {
+        "name": "QCQ171",
+        "code": "6GV4DOS03I0RFPFTOIP1D",
+        "description": "低倍",
+        "value": "11W",
+        "copyCount": 12626,
+        "image": "/assets/images/category_smg.svg"
+    },
+    {
+        "name": "Vector",
+        "code": "6H135GK0FIOH9JJL4D8E6",
+        "description": "低配",
+        "value": "21W",
+        "copyCount": 13592,
         "image": "/assets/images/category_smg.svg"
     }
 ];
@@ -82,7 +82,7 @@ const activityData = [];
 const siteImages = {};
 
 const siteInfo = {
-    updateTime: '2026/1/16 16:42:41',
+    updateTime: '2026/1/16 16:45:32',
     updateDate: '',
     countdown: {"days":0,"hours":0}
 };
