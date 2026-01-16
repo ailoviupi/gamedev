@@ -7,13 +7,27 @@ on:
   repository_dispatch:
     types: [update_data]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: 设置 Node.js
         uses: actions/setup-node@v4
@@ -28,8 +42,20 @@ jobs:
         env:
           SOURCE_URL: https://g.aitags.cn/
 
+      - name: 配置 Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config credential.helper store
+          echo "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com" > ~/.git-credentials
+
       - name: 提交更新
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 'docs: 自动更新改枪码数据 $(date +%Y-%m-%d)'
-          file_pattern: assets/js/data.js
+        run: |
+          git add assets/js/data.js
+          git commit -m "docs: 自动更新改枪码数据 $(date +%Y-%m-%d)" || echo "没有数据变化"
+          git push origin master || echo "无需推送"
+
+      - name: 部署到 GitHub Pages
+        if: github.ref == 'refs/heads/master'
+        uses: actions/deploy-pages@v4
+        id: deployment
