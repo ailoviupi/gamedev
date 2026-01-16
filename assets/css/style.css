@@ -491,6 +491,39 @@ body {
     height: 20px;
 }
 
+.copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    min-height: 44px;
+    min-width: 44px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.copy-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
 .btn-primary {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
@@ -1380,6 +1413,8 @@ body {
         min-width: 48px;
         min-height: 48px;
         padding: 0.75rem;
+        position: relative;
+        z-index: 1001;
     }
 
     .mobile-menu-btn.active span:nth-child(1) {

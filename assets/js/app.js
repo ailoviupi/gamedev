@@ -253,16 +253,23 @@ class App {
     }
 
     initEventDelegation() {
-        document.addEventListener('click', (e) => {
-            const copyBtn = e.target.closest('.copy-btn');
-            if (copyBtn) {
-                const codeContainer = copyBtn.closest('[data-code]');
-                if (codeContainer) {
-                    const code = codeContainer.dataset.code;
-                    this.copyCode(code, copyBtn.querySelector('.copy-icon'));
-                }
+        const handleCopy = (e) => {
+            const btn = e.target.closest('.copy-btn');
+            if (!btn) return;
+            
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const codeContainer = btn.closest('[data-code]');
+            if (codeContainer) {
+                const code = codeContainer.dataset.code;
+                const icon = btn.querySelector('.copy-icon');
+                this.copyCode(code, icon);
             }
-        });
+        };
+
+        document.addEventListener('click', handleCopy);
+        document.addEventListener('touchend', handleCopy);
     }
 
     initCursorGlow() {
