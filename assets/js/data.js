@@ -1,33 +1,33 @@
-// 自动生成的数据文件 - 2026/1/15 23:18:49
+// 自动生成的数据文件 - 2026/1/16 16:42:41
 // 数据来源: https://g.aitags.cn/
 
 const weaponData = [
     {
-        "name": "G18",
-        "code": "6G941RG08OPOB8QKQ72I8",
-        "description": "夺舍必备",
-        "value": "9W",
+        "name": "725双管霰弹枪",
+        "code": "6H2R61K08F8FFPMQA1O83",
+        "description": "3倍镜 用独头弹当狙打",
+        "value": "29W",
+        "category": "shotgun",
+        "copyCount": 3300,
+        "image": "/assets/images/category_shotgun.svg"
+    },
+    {
+        "name": "沙漠之鹰",
+        "code": "沙漠之鹰-烽火地带-6IBAREC0A3DCN3T9I535L",
+        "description": "二倍",
+        "value": "17W",
         "category": "pistol",
-        "copyCount": 14051,
+        "copyCount": 501,
         "image": "/assets/images/category_pistol.svg"
     },
     {
-        "name": "QJB201",
-        "code": "6GQTJKO095HC4609S9G3Q",
-        "description": "稳定红点 60发弹鼓",
-        "value": "41W",
-        "category": "lmg",
-        "copyCount": 6621,
-        "image": "/assets/images/category_mg.svg"
-    },
-    {
-        "name": ".357左轮",
-        "code": "6G9423S08OPOB8QKQ72I8",
-        "description": "可以当狙玩 3/7弹道狙击镜",
-        "value": "24W",
-        "category": "pistol",
-        "copyCount": 2461,
-        "image": "/assets/images/category_pistol.svg"
+        "name": "CAR-15",
+        "code": "6HH7K7K024CH4QGG5QQUE",
+        "description": "消音·45发",
+        "value": "13W",
+        "category": "rifle",
+        "copyCount": 4863,
+        "image": "/assets/images/category_rifle.svg"
     },
     {
         "name": "MK4冲锋枪",
@@ -35,42 +35,42 @@ const weaponData = [
         "description": "YJJ同款·腰射3连发",
         "value": "26W",
         "category": "smg",
-        "copyCount": 14079,
+        "copyCount": 14115,
         "image": "/assets/images/category_smg.svg"
     }
 ];
 
 const hotWeapons = [
     {
-        "name": "G18",
-        "code": "6G941RG08OPOB8QKQ72I8",
-        "description": "夺舍必备",
-        "value": "9W",
-        "copyCount": 14051,
+        "name": "725双管霰弹枪",
+        "code": "6H2R61K08F8FFPMQA1O83",
+        "description": "3倍镜 用独头弹当狙打",
+        "value": "29W",
+        "copyCount": 3300,
+        "image": "/assets/images/category_shotgun.svg"
+    },
+    {
+        "name": "沙漠之鹰",
+        "code": "沙漠之鹰-烽火地带-6IBAREC0A3DCN3T9I535L",
+        "description": "二倍",
+        "value": "17W",
+        "copyCount": 501,
         "image": "/assets/images/category_pistol.svg"
     },
     {
-        "name": "QJB201",
-        "code": "6GQTJKO095HC4609S9G3Q",
-        "description": "稳定红点 60发弹鼓",
-        "value": "41W",
-        "copyCount": 6621,
-        "image": "/assets/images/category_mg.svg"
-    },
-    {
-        "name": ".357左轮",
-        "code": "6G9423S08OPOB8QKQ72I8",
-        "description": "可以当狙玩 3/7弹道狙击镜",
-        "value": "24W",
-        "copyCount": 2461,
-        "image": "/assets/images/category_pistol.svg"
+        "name": "CAR-15",
+        "code": "6HH7K7K024CH4QGG5QQUE",
+        "description": "消音·45发",
+        "value": "13W",
+        "copyCount": 4863,
+        "image": "/assets/images/category_rifle.svg"
     },
     {
         "name": "MK4冲锋枪",
         "code": "6I6FFL806UPSRBSFIDPDC",
         "description": "YJJ同款·腰射3连发",
         "value": "26W",
-        "copyCount": 14079,
+        "copyCount": 14115,
         "image": "/assets/images/category_smg.svg"
     }
 ];
@@ -82,7 +82,7 @@ const activityData = [];
 const siteImages = {};
 
 const siteInfo = {
-    updateTime: '2026/1/15 23:18:49',
+    updateTime: '2026/1/16 16:42:41',
     updateDate: '',
     countdown: {"days":0,"hours":0}
 };

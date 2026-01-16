@@ -22,7 +22,8 @@ const categoryIconMap = {
     'mg': '/assets/images/category_mg.svg',
     'lmg': '/assets/images/category_mg.svg',
     'melee': '/assets/images/category_melee.svg',
-    'explosive': '/assets/images/category_explosive.svg'
+    'explosive': '/assets/images/category_explosive.svg',
+    'special': '/assets/images/category_special.svg'
 };
 
 function getWeaponImage(weaponName, category) {
