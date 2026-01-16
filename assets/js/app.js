@@ -45,11 +45,18 @@ class App {
         this.currentCategory = 'all';
         this.displayedWeapons = 12;
         this.theme = localStorage.getItem('theme') || 'dark';
+        this.isMobile = this.checkIsMobile();
+        
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.init());
         } else {
             this.init();
         }
+    }
+
+    checkIsMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+            || (window.innerWidth <= 768 && 'ontouchstart' in window);
     }
 
     async init() {
@@ -68,6 +75,51 @@ class App {
         this.renderManufacturing();
         this.renderActivities();
         this.updateStats();
+        this.initMobileOptimizations();
+    }
+
+    initMobileOptimizations() {
+        if (!this.isMobile) return;
+
+        document.body.classList.add('is-mobile');
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const headerOffset = 70;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }, { passive: true });
+        });
+
+        const preventZoom = (e) => {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        };
+
+        let lastTouchEnd = 0;
+        const handleTouchEnd = (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        };
+
+        document.addEventListener('touchstart', preventZoom, { passive: false });
+        document.addEventListener('touchend', handleTouchEnd, { passive: false });
     }
 
     async loadData() {
