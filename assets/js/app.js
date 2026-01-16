@@ -533,12 +533,16 @@ class App {
     updateStats() {
         const weaponCount = document.getElementById('weaponCount');
         const codeCount = document.getElementById('codeCount');
+        const dataUpdateTime = document.getElementById('dataUpdateTime');
         
         if (weaponCount) {
             weaponCount.textContent = (weaponData.length || 0) + '+';
         }
         if (codeCount) {
             codeCount.textContent = ((weaponData.length || 0) * 4) + '+';
+        }
+        if (dataUpdateTime && siteInfo && siteInfo.updateTime) {
+            dataUpdateTime.textContent = siteInfo.updateTime;
         }
     }
 
