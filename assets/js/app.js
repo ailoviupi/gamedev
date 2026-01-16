@@ -161,7 +161,7 @@ class App {
 
     getWeaponIcon(weapon) {
         if (weapon.image) {
-            return `<img src="${weapon.image}" alt="${weapon.name}" class="weapon-img" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.innerHTML='${weaponEmojis[weapon.category] || '🔫'}';">`;
+            return `<img src="${weapon.image}" alt="${weapon.name}" class="weapon-img" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.querySelector('.weapon-icon').textContent='${weaponEmojis[weapon.category] || '🔫'}';">`;
         }
         return weaponEmojis[weapon.category] || '🔫';
     }
@@ -268,25 +268,45 @@ class App {
             }
         };
 
-        document.addEventListener('click', handleCopy);
-        document.addEventListener('touchend', handleCopy);
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const eventType = isTouchDevice ? 'touchend' : 'click';
+        document.addEventListener(eventType, handleCopy, { passive: false });
     }
 
     initCursorGlow() {
         const cursorGlow = document.querySelector('.cursor-glow');
+        if (!cursorGlow) return;
         
-        document.addEventListener('mousemove', (e) => {
-            cursorGlow.style.left = e.clientX + 'px';
-            cursorGlow.style.top = e.clientY + 'px';
-        });
-
-        document.addEventListener('mouseenter', () => {
+        let animationFrameId = null;
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        const updateGlow = () => {
+            cursorGlow.style.transform = `translate3d(${mouseX - 200}px, ${mouseY - 200}px, 0)`;
+            animationFrameId = null;
+        };
+        
+        const handleMouseMove = (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            if (!animationFrameId) {
+                animationFrameId = requestAnimationFrame(updateGlow);
+            }
+        };
+        
+        document.addEventListener('mousemove', handleMouseMove, { passive: true });
+        
+        const handleMouseEnter = () => {
             cursorGlow.style.opacity = '1';
-        });
-
-        document.addEventListener('mouseleave', () => {
+        };
+        
+        const handleMouseLeave = () => {
             cursorGlow.style.opacity = '0';
-        });
+        };
+        
+        document.addEventListener('mouseenter', handleMouseEnter);
+        document.addEventListener('mouseleave', handleMouseLeave);
     }
 
     initAOS() {
@@ -319,8 +339,13 @@ class App {
         const hotGrid = document.getElementById('hotGrid');
         if (!hotGrid) return;
         
-        hotGrid.innerHTML = weapons.map((weapon, index) => `
-            <div class="hot-card" style="animation-delay: ${index * 0.1}s">
+        const fragment = document.createDocumentFragment();
+        
+        weapons.forEach((weapon, index) => {
+            const card = document.createElement('div');
+            card.className = 'hot-card';
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.innerHTML = `
                 <div class="hot-card-header">
                     <h3 class="hot-card-title">${weapon.name}</h3>
                     <span class="hot-badge">热门</span>
@@ -345,8 +370,12 @@ class App {
                     </svg>
                     <span class="hot-card-copy-count">${weapon.copyCount > 0 ? weapon.copyCount.toLocaleString() : '0'} 次复制</span>
                 </div>
-            </div>
-        `).join('');
+            `;
+            fragment.appendChild(card);
+        });
+        
+        hotGrid.innerHTML = '';
+        hotGrid.appendChild(fragment);
     }
 
     renderWeapons() {
@@ -356,8 +385,13 @@ class App {
         const filteredWeapons = this.getFilteredWeapons();
         const weaponsToShow = filteredWeapons.slice(0, this.displayedWeapons);
         
-        weaponsGrid.innerHTML = weaponsToShow.map((weapon, index) => `
-            <div class="weapon-card" style="animation-delay: ${index * 0.05}s">
+        const fragment = document.createDocumentFragment();
+        
+        weaponsToShow.forEach((weapon, index) => {
+            const card = document.createElement('div');
+            card.className = 'weapon-card';
+            card.style.animationDelay = `${index * 0.05}s`;
+            card.innerHTML = `
                 <div class="weapon-card-header">
                     <div class="weapon-icon">${this.getWeaponIcon(weapon)}</div>
                     <div class="weapon-info">
@@ -371,8 +405,12 @@ class App {
                         <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
-            </div>
-        `).join('');
+            `;
+            fragment.appendChild(card);
+        });
+        
+        weaponsGrid.innerHTML = '';
+        weaponsGrid.appendChild(fragment);
 
         const loadMoreBtn = document.getElementById('loadMoreBtn');
         if (!loadMoreBtn) return;

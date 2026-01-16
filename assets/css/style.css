@@ -69,6 +69,9 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 body {
@@ -81,6 +84,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     touch-action: manipulation;
+    text-size-adjust: 100%;
 }
 
 .cursor-glow {
@@ -91,8 +95,10 @@ body {
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transform: translate(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform, opacity;
     transition: opacity var(--transition);
+    contain: paint layout;
 }
 
 .container {
@@ -139,10 +145,12 @@ body {
     border-radius: var(--radius-lg);
     color: white;
     transition: transform var(--transition);
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
 }
 
 .logo:hover {
-    transform: scale(1.05);
+    transform: scale3d(1.05, 1.05, 1);
 }
 
 .logo svg {
@@ -174,6 +182,7 @@ body {
     border-radius: var(--radius);
     transition: all var(--transition);
     position: relative;
+    will-change: color, background-color;
 }
 
 .nav-link:hover,
@@ -191,8 +200,9 @@ body {
     height: 2px;
     background: linear-gradient(90deg, var(--primary), var(--accent));
     transition: all var(--transition);
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
     border-radius: var(--radius-full);
+    will-change: width;
 }
 
 .nav-link.active::after {
@@ -217,13 +227,14 @@ body {
     color: var(--text-secondary);
     cursor: pointer;
     transition: all var(--transition);
+    will-change: transform, background-color, color, border-color;
 }
 
 .theme-toggle:hover {
     background: var(--bg-secondary);
     color: var(--primary);
     border-color: var(--primary);
-    transform: scale(1.05);
+    transform: scale3d(1.05, 1.05, 1);
 }
 
 .theme-toggle svg {
@@ -277,6 +288,8 @@ body {
     justify-content: center;
     padding: 4rem 1.5rem;
     overflow: hidden;
+    content-visibility: auto;
+    contain: content;
 }
 
 .hero-bg {
@@ -310,6 +323,9 @@ body {
     filter: blur(80px);
     opacity: 0.2;
     animation: float 20s ease-in-out infinite;
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+    contain: paint;
 }
 
 .floating-element:nth-child(1) {
@@ -334,16 +350,16 @@ body {
 
 @keyframes float {
     0%, 100% {
-        transform: translate(0, 0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
     }
     25% {
-        transform: translate(50px, -50px) scale(1.1);
+        transform: translate3d(50px, -50px, 0) scale(1.1);
     }
     50% {
-        transform: translate(0, -100px) scale(0.9);
+        transform: translate3d(0, -100px, 0) scale(0.9);
     }
     75% {
-        transform: translate(-50px, -50px) scale(1.05);
+        transform: translate3d(-50px, -50px, 0) scale(1.05);
     }
 }
 
@@ -374,16 +390,17 @@ body {
     background: var(--success);
     border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
+    will-change: transform, opacity;
 }
 
 @keyframes pulse {
     0%, 100% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale3d(1, 1, 1);
     }
     50% {
         opacity: 0.5;
-        transform: scale(1.2);
+        transform: scale3d(1.2, 1.2, 1);
     }
 }
 
@@ -562,7 +579,7 @@ body {
     position: absolute;
     bottom: 2rem;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -570,6 +587,7 @@ body {
     color: var(--text-muted);
     font-size: 0.75rem;
     animation: bounce 2s ease-in-out infinite;
+    will-change: transform;
 }
 
 .mouse {
@@ -588,27 +606,28 @@ body {
     height: 8px;
     background: var(--primary);
     border-radius: 2px;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
     animation: scroll 2s ease-in-out infinite;
+    will-change: transform, opacity;
 }
 
 @keyframes scroll {
     0%, 100% {
         opacity: 1;
-        transform: translateX(-50%) translateY(0);
+        transform: translate3d(-50%, 0, 0);
     }
     50% {
         opacity: 0.3;
-        transform: translateX(-50%) translateY(10px);
+        transform: translate3d(-50%, 10px, 0);
     }
 }
 
 @keyframes bounce {
     0%, 100% {
-        transform: translateX(-50%) translateY(0);
+        transform: translate3d(-50%, 0, 0);
     }
     50% {
-        transform: translateX(-50%) translateY(-10px);
+        transform: translate3d(-50%, -10px, 0);
     }
 }
 
@@ -671,6 +690,8 @@ body {
 .activity-section {
     padding: 6rem 0;
     background: linear-gradient(180deg, transparent 0%, var(--bg-secondary) 50%, transparent 100%);
+    content-visibility: auto;
+    contain: content;
 }
 
 .activity-grid {
@@ -688,11 +709,13 @@ body {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-xl);
     transition: all var(--transition);
+    will-change: transform, border-color, box-shadow;
+    contain: content;
 }
 
 .activity-card:hover {
     border-color: var(--primary);
-    transform: translateY(-4px);
+    transform: translate3d(0, -4px, 0);
     box-shadow: var(--shadow-lg);
 }
 
@@ -733,6 +756,8 @@ body {
 
 .manufacturing-section {
     padding: 6rem 0;
+    content-visibility: auto;
+    contain: content;
 }
 
 .manufacturing-grid {
@@ -749,10 +774,12 @@ body {
     border-radius: var(--radius-xl);
     overflow: hidden;
     transition: all var(--transition);
+    will-change: transform, border-color;
+    contain: content;
 }
 
 .manufacturing-card:hover {
-    transform: translateY(-4px);
+    transform: translate3d(0, -4px, 0);
     border-color: var(--primary);
 }
 
@@ -850,10 +877,12 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition);
+    will-change: transform, box-shadow;
+    transform: translate3d(0, 0, 0);
 }
 
 .random-btn:hover {
-    transform: scale(1.05);
+    transform: scale3d(1.05, 1.05, 1);
     box-shadow: var(--shadow-glow);
 }
 
@@ -876,10 +905,12 @@ body {
     border-radius: var(--radius-xl);
     overflow: hidden;
     transition: all var(--transition);
+    will-change: transform, border-color, box-shadow;
+    contain: content;
 }
 
 .hot-card:hover {
-    transform: translateY(-4px);
+    transform: translate3d(0, -4px, 0);
     border-color: var(--primary);
     box-shadow: var(--shadow-lg);
 }
@@ -1000,6 +1031,8 @@ body {
 
 .weapons-section {
     padding: 6rem 0;
+    content-visibility: auto;
+    contain: content;
 }
 
 .filter-container {
@@ -1036,6 +1069,7 @@ body {
     cursor: pointer;
     white-space: nowrap;
     transition: all var(--transition);
+    will-change: color, background-color, border-color, transform;
 }
 
 .filter-btn svg {
@@ -1071,26 +1105,28 @@ body {
     animation: fadeIn 0.5s ease forwards;
     touch-action: manipulation;
     user-select: none;
+    will-change: transform, border-color, box-shadow;
+    contain: content;
 }
 
 .weapon-card:active {
-    transform: scale(0.98);
+    transform: scale3d(0.98, 0.98, 1);
     border-color: var(--primary);
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translate3d(0, 20px, 0);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
 .weapon-card:hover {
-    transform: translateY(-4px);
+    transform: translate3d(0, -4px, 0);
     border-color: var(--primary);
     box-shadow: var(--shadow-lg);
 }
@@ -1188,12 +1224,17 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition);
+    will-change: background-color, border-color, color;
 }
 
 .load-more-btn:hover {
     background: var(--bg-tertiary);
     border-color: var(--primary);
     color: var(--primary);
+}
+
+.load-more-btn:active {
+    transform: scale3d(0.97, 0.97, 1);
 }
 
 .load-more-btn svg {
@@ -1254,6 +1295,7 @@ body {
     text-decoration: none;
     font-size: 0.9rem;
     transition: all var(--transition);
+    will-change: background-color, border-color, color;
 }
 
 .footer-links a:hover {
@@ -1329,22 +1371,22 @@ body {
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(100%);
+        transform: translate3d(100%, 0, 0);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @keyframes slideOut {
     from {
         opacity: 1;
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
     }
     to {
         opacity: 0;
-        transform: translateX(100%);
+        transform: translate3d(100%, 0, 0);
     }
 }
 
@@ -1359,7 +1401,8 @@ body {
 
     body {
         overflow-x: hidden;
-        touch-action: pan-x pan-y;
+        touch-action: manipulation;
+        -webkit-touch-callout: none;
     }
 
     .cursor-glow {
@@ -1378,16 +1421,17 @@ body {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        transform: translateY(-100%);
+        transform: translate3d(0, -100%, 0);
         opacity: 0;
         visibility: hidden;
         transition: all var(--transition-fast);
         z-index: 1000;
         -webkit-overflow-scrolling: touch;
+        will-change: transform, opacity, visibility;
     }
 
     .nav-links.active {
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
         opacity: 1;
         visibility: visible;
     }
@@ -1402,6 +1446,7 @@ body {
         justify-content: center;
         border-radius: var(--radius-lg);
         transition: background-color var(--transition-fast);
+        touch-action: manipulation;
     }
 
     .nav-link:active {
@@ -1415,10 +1460,11 @@ body {
         padding: 0.75rem;
         position: relative;
         z-index: 1001;
+        touch-action: manipulation;
     }
 
     .mobile-menu-btn.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
+        transform: rotate(45deg) translate3d(5px, 5px, 0);
     }
 
     .mobile-menu-btn.active span:nth-child(2) {
@@ -1426,7 +1472,7 @@ body {
     }
 
     .mobile-menu-btn.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
+        transform: rotate(-45deg) translate3d(5px, -5px, 0);
     }
 
     .hero {
@@ -1454,10 +1500,11 @@ body {
         justify-content: center;
         padding: 1rem 1.25rem;
         min-height: 52px;
+        touch-action: manipulation;
     }
 
     .btn:active {
-        transform: scale(0.97);
+        transform: scale3d(0.97, 0.97, 1);
     }
 
     .scroll-indicator {
@@ -1566,11 +1613,11 @@ body {
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(15px);
+            transform: translate3d(0, 15px, 0);
         }
         to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
         }
     }
 
