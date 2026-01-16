@@ -1,77 +1,77 @@
-// 自动生成的数据文件 - 2026/1/16 16:45:32
+// 自动生成的数据文件 - 2026/1/16 08:53:47
 // 数据来源: https://g.aitags.cn/
 
 const weaponData = [
     {
-        "name": "AKS-74U",
-        "code": "6H4NIB40ERAPPQR7C1VV1",
-        "description": "",
-        "value": "12W",
-        "category": "rifle",
-        "copyCount": 3667,
-        "image": "/assets/images/category_rifle.svg"
+        "name": "G18",
+        "code": "6G941RG08OPOB8QKQ72I8",
+        "description": "夺舍必备",
+        "value": "9W",
+        "category": "pistol",
+        "copyCount": 14079,
+        "image": "/assets/images/category_pistol.svg"
     },
     {
-        "name": "PTR-32",
-        "code": "6H01T1K09MTF0NSTEEU37",
-        "description": "性价比",
-        "value": "14W",
+        "name": "R93",
+        "code": "6HG9MUK08KE3E5HTC891L",
+        "description": "高操控",
+        "value": "20W",
         "category": "sniper",
-        "copyCount": 7516,
+        "copyCount": 14767,
         "image": "/assets/images/category_sniper.svg"
     },
     {
-        "name": "QCQ171",
-        "code": "6GV4DOS03I0RFPFTOIP1D",
-        "description": "低倍",
-        "value": "11W",
+        "name": "MK4冲锋枪",
+        "code": "6I6FFL806UPSRBSFIDPDC",
+        "description": "YJJ同款·腰射3连发",
+        "value": "26W",
         "category": "smg",
-        "copyCount": 12626,
+        "copyCount": 14115,
         "image": "/assets/images/category_smg.svg"
     },
     {
-        "name": "Vector",
-        "code": "6H135GK0FIOH9JJL4D8E6",
-        "description": "低配",
-        "value": "21W",
-        "category": "smg",
-        "copyCount": 13592,
-        "image": "/assets/images/category_smg.svg"
+        "name": "PSG-1",
+        "code": "6H07HIO06GA8AHGUVS95M",
+        "description": "HAMR组合瞄准镜",
+        "value": "34W",
+        "category": "sniper",
+        "copyCount": 12326,
+        "image": "/assets/images/category_sniper.svg"
     }
 ];
 
 const hotWeapons = [
     {
-        "name": "AKS-74U",
-        "code": "6H4NIB40ERAPPQR7C1VV1",
-        "description": "",
-        "value": "12W",
-        "copyCount": 3667,
-        "image": "/assets/images/category_rifle.svg"
+        "name": "G18",
+        "code": "6G941RG08OPOB8QKQ72I8",
+        "description": "夺舍必备",
+        "value": "9W",
+        "copyCount": 14079,
+        "image": "/assets/images/category_pistol.svg"
     },
     {
-        "name": "PTR-32",
-        "code": "6H01T1K09MTF0NSTEEU37",
-        "description": "性价比",
-        "value": "14W",
-        "copyCount": 7516,
+        "name": "R93",
+        "code": "6HG9MUK08KE3E5HTC891L",
+        "description": "高操控",
+        "value": "20W",
+        "copyCount": 14767,
         "image": "/assets/images/category_sniper.svg"
     },
     {
-        "name": "QCQ171",
-        "code": "6GV4DOS03I0RFPFTOIP1D",
-        "description": "低倍",
-        "value": "11W",
-        "copyCount": 12626,
+        "name": "MK4冲锋枪",
+        "code": "6I6FFL806UPSRBSFIDPDC",
+        "description": "YJJ同款·腰射3连发",
+        "value": "26W",
+        "copyCount": 14115,
         "image": "/assets/images/category_smg.svg"
     },
     {
-        "name": "Vector",
-        "code": "6H135GK0FIOH9JJL4D8E6",
-        "description": "低配",
-        "value": "21W",
-        "copyCount": 13592,
-        "image": "/assets/images/category_smg.svg"
+        "name": "PSG-1",
+        "code": "6H07HIO06GA8AHGUVS95M",
+        "description": "HAMR组合瞄准镜",
+        "value": "34W",
+        "copyCount": 12326,
+        "image": "/assets/images/category_sniper.svg"
     }
 ];
 
@@ -82,7 +82,7 @@ const activityData = [];
 const siteImages = {};
 
 const siteInfo = {
-    updateTime: '2026/1/16 16:45:32',
+    updateTime: '2026/1/16 08:53:46',
     updateDate: '',
     countdown: {"days":0,"hours":0}
 };
